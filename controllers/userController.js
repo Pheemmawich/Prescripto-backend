@@ -236,40 +236,40 @@ const cancelAppointment = async (req, res) => {
     }
 }
 
-const razorpayInstance = new razorpay({
-    key_id: process.env.RAZORPAY_KEY_ID,
-    key_secret: process.env.RAZORPAY_KEY_SECRET
-})
+// const razorpayInstance = new razorpay({
+//     key_id: process.env.RAZORPAY_KEY_ID,
+//     key_secret: process.env.RAZORPAY_KEY_SECRET
+// })
 
 
 // API to make payment of appointment using razorpay
-const paymentRazorpay = async (req, res) => {
+// const paymentRazorpay = async (req, res) => {
 
-    try {
-        const { appointmentId } = req.body
+//     try {
+//         const { appointmentId } = req.body
     
-        const appointmentData = await appointmentModel.findById(appointmentId)
+//         const appointmentData = await appointmentModel.findById(appointmentId)
     
-        if(!appointmentData || appointmentData.cancelled){
-            return res.json({success:false, message:"Appointment Cancelled or not found"})
-        }
+//         if(!appointmentData || appointmentData.cancelled){
+//             return res.json({success:false, message:"Appointment Cancelled or not found"})
+//         }
     
-        // creating options for razorpay payment 
-        const options = {
-            amount: appointmentData.amount * 100,
-            currency: process.env.CURRENCY,
-            receipt: appointmentId,
-        }      
+//         // creating options for razorpay payment 
+//         const options = {
+//             amount: appointmentData.amount * 100,
+//             currency: process.env.CURRENCY,
+//             receipt: appointmentId,
+//         }      
     
-        // creation of an order
-        const order = await razorpayInstance.orders.create(options)
+//         // creation of an order
+//         const order = await razorpayInstance.orders.create(options)
     
-        res.json({success:true, order})
-    } catch (error) {
-        console.log(error)
-        res.json({success:false, message: error.message})
-    }
-}
+//         res.json({success:true, order})
+//     } catch (error) {
+//         console.log(error)
+//         res.json({success:false, message: error.message})
+//     }
+// }
 
 // API to make payment off appointment using Stripe
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
