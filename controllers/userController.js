@@ -273,6 +273,7 @@ const cancelAppointment = async (req, res) => {
 
 // API to make payment off appointment using Stripe
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
+const frontendUrl = process.env.FRONTEND_URL
 
 const paymentStripe = async (req, res) => {
     try {
@@ -300,8 +301,8 @@ const paymentStripe = async (req, res) => {
               },
             ],
             mode: "payment",
-            success_url: "http://localhost:5173/my-appointments",
-            cancel_url: "http://localhost:5173/my-appointments",
+            success_url: `${frontendUrl}/my-appointments`,
+            cancel_url: `${frontendUrl}/my-appointments`,
           });
     
           res.json({success:true, url: session.url });
